@@ -6,6 +6,7 @@ export default class Table {
         this.tbody = this.table.querySelector('tbody');
         this.getData();
         this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
+        this.previousArrTr;
         this.sortData();
     }
 
@@ -34,7 +35,6 @@ export default class Table {
         let count = 0;
 
         setInterval(() => {
-
             switch (count) {
                 case 0:
                     this.sortForNumbersIncrease('id');
@@ -67,64 +67,43 @@ export default class Table {
 
         }, 2000);
     }
-
-    // updateData(){
-    //     this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
-    //     const previousArr = this.arrTr.map((element) => element);
-    // }
-
-
     sortForNumbersIncrease(field) {
-        this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
-
-        const previousArr = this.arrTr.map((element) => element);
+        this.updateData();
 
         this.arrTr.sort((a, b) => (a.dataset[field]) - (b.dataset[field]));
 
-        this.arrTr.forEach((item, index) => {
-            if (item === previousArr[index]) return;
-
-            previousArr[index].outerHTML = item.outerHTML;
-        });
+        this.updateDOM();
     }
     sortForNumbersDecrease(field) {
-        this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
-        
-        const previousArr = this.arrTr.map((element) => element);
-        
+        this.updateData();
 
         this.arrTr.sort((a, b) => (b.dataset[field]) - (a.dataset[field]));
 
-        this.arrTr.forEach((item, index) => {
-            if (item === previousArr[index]) return;
-
-            previousArr[index].outerHTML = item.outerHTML;
-        });
+        this.updateDOM();
     }
     sortForTextDecrease(field) {
-        this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
-        const previousArr = this.arrTr.map((element) => element);
+        this.updateData();
 
         this.arrTr.sort((a, b) => a.dataset[field] < b.dataset[field] ? 1 : -1);
 
-        this.arrTr.forEach((item, index) => {
-            if (item === previousArr[index]) return;
-
-            previousArr[index].outerHTML = item.outerHTML;
-        });
+        this.updateDOM();
     }
     sortForTextIncrease(field) {
-        this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
-        const previousArr = this.arrTr.map((element) => element);
+        this.updateData();
 
         this.arrTr.sort((a, b) => a.dataset[field] > b.dataset[field] ? 1 : -1);
-        
-        this.arrTr.forEach((item, index) => {
-            if (item === previousArr[index]) return;
 
-            previousArr[index].outerHTML = item.outerHTML;
+        this.updateDOM();
+    }
+    updateData() {
+        this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
+        this.previousArrTr = this.arrTr.map((element) => element);
+    }
+    updateDOM() {
+        this.arrTr.forEach((item, index) => {
+            if (item === this.previousArrTr[index]) return;
+
+            this.previousArrTr[index].outerHTML = item.outerHTML;
         });
     }
-
-
 }
