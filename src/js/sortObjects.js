@@ -68,22 +68,62 @@ export default class Table {
         }, 2000);
     }
 
+    // updateData(){
+    //     this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
+    //     const previousArr = this.arrTr.map((element) => element);
+    // }
+
 
     sortForNumbersIncrease(field) {
-        const arr = this.arrTr.sort((a, b) => (a.dataset[field]) - (b.dataset[field]));
-        arr.forEach(el => { this.tbody.appendChild(el) });
+        this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
+
+        const previousArr = this.arrTr.map((element) => element);
+
+        this.arrTr.sort((a, b) => (a.dataset[field]) - (b.dataset[field]));
+
+        this.arrTr.forEach((item, index) => {
+            if (item === previousArr[index]) return;
+
+            previousArr[index].outerHTML = item.outerHTML;
+        });
     }
     sortForNumbersDecrease(field) {
-        const arr = this.arrTr.sort((a, b) => (b.dataset[field]) - (a.dataset[field]));
-        arr.forEach(el => { this.tbody.appendChild(el) });
+        this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
+        
+        const previousArr = this.arrTr.map((element) => element);
+        
+
+        this.arrTr.sort((a, b) => (b.dataset[field]) - (a.dataset[field]));
+
+        this.arrTr.forEach((item, index) => {
+            if (item === previousArr[index]) return;
+
+            previousArr[index].outerHTML = item.outerHTML;
+        });
     }
     sortForTextDecrease(field) {
-        const arr = this.arrTr.sort((a, b) => a.dataset[field] < b.dataset[field] ? 1 : -1);
-        arr.forEach(el => { this.tbody.appendChild(el) });
+        this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
+        const previousArr = this.arrTr.map((element) => element);
+
+        this.arrTr.sort((a, b) => a.dataset[field] < b.dataset[field] ? 1 : -1);
+
+        this.arrTr.forEach((item, index) => {
+            if (item === previousArr[index]) return;
+
+            previousArr[index].outerHTML = item.outerHTML;
+        });
     }
     sortForTextIncrease(field) {
-        const arr = this.arrTr.sort((a, b) => a.dataset[field] > b.dataset[field] ? 1 : -1);
-        arr.forEach(el => { this.tbody.appendChild(el) });
+        this.arrTr = Array.from(this.tbody.querySelectorAll('tr'));
+        const previousArr = this.arrTr.map((element) => element);
+
+        this.arrTr.sort((a, b) => a.dataset[field] > b.dataset[field] ? 1 : -1);
+        
+        this.arrTr.forEach((item, index) => {
+            if (item === previousArr[index]) return;
+
+            previousArr[index].outerHTML = item.outerHTML;
+        });
     }
 
 
