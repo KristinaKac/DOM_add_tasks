@@ -16,6 +16,10 @@ module.exports = {
           MiniCssExtractPlugin.loader, 'css-loader',
         ],
       },
+      {
+        test: /\.(png|jpg|gif|svg)$/i,
+        type: 'asset/inline',
+      },
     ],
   },
   plugins: [
